@@ -15,9 +15,18 @@
 # so [1, 2, 2, 3] returns [1, 2, 3]. You may create a new list or
 # modify the passed in list.
 # Hint: Don't use `set()`
+
+
 def remove_adjacent(nums):
     """Your code goes here.  Edit this docstring."""
-    return
+    new_nums = []
+    for index in range(len(nums)-1):
+        if nums[index] != nums[index+1]:
+            new_nums.append(nums[index])
+    if len(new_nums) > 0 and len(nums) > 0:
+        if new_nums[-1] != nums[-1]:
+            new_nums.append(nums[-1])
+    return new_nums
 
 
 # E. Given two lists sorted in increasing order, create and return a merged
@@ -26,8 +35,23 @@ def remove_adjacent(nums):
 # Hint: Don't use `sort` or `sorted` -- they are not linear time.
 def linear_merge(list1, list2):
     """Your code goes here.  Edit this docstring."""
-    return
+    new_list = []
+    if len(list1) > len(list2):
+        iter_list = list2
+        second_list = list1
+    else:
+        iter_list = list1
+        second_list = list2
 
+    for index in range(len(iter_list)):
+        if ord(iter_list[index][0]) < ord(second_list[index][0]):
+            new_list.append(iter_list[index])
+            new_list.append(second_list[index])
+        else:
+            new_list.append(second_list[index])
+            new_list.append(iter_list[index])
+    new_list = new_list + second_list[len(iter_list):]
+    return new_list
 
 
 # Simple provided test() function used in main() to print
@@ -55,6 +79,7 @@ def main():
          ['aa', 'bb', 'cc', 'xx', 'zz'])
     test(linear_merge(['aa', 'aa'], ['aa', 'bb', 'bb']),
          ['aa', 'aa', 'aa', 'bb', 'bb'])
+
 
 # Standard boilerplate (python idiom) to call the main() function.
 if __name__ == '__main__':
